@@ -1,0 +1,59 @@
+---
+title: "Sthirta: Enterprise Churn Intelligence"
+description: "Deployed an End-to-End ML pipeline with XGBoost, FastAPI, and a Streamlit SaaS dashboard. Features interactive SHAP explainability and AI retention strategy generation."
+date: "2024-10-01"
+tags: ["XGBoost", "FastAPI", "Streamlit"]
+---
+
+# Customer Churn Prediction & Explainability
+
+Identifying which customers are likely to cancel their subscription (churn) is critical for SaaS and telecom businesses. However, just knowing *who* will churn isn't enough; the business needs to know *why* to take preventative action.
+
+## Dataset & Preprocessing
+
+We used the Telco Customer Churn dataset from Kaggle.
+Key preprocessing steps included:
+1. **Handling Missing Values**: Imputed missing `TotalCharges` with median values.
+2. **Encoding**: One-Hot Encoded categorical variables like `InternetService`, `Contract`, and `PaymentMethod`.
+3. **Scaling**: Standardized continuous variables (`tenure`, `MonthlyCharges`).
+
+## Model Selection
+
+We evaluated Logistic Regression, Random Forest, and XGBoost. Random Forest provided the best balance of performance and interpretability without overfitting.
+
+```python
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+
+# Train the model
+rf_model = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=42)
+rf_model.fit(X_train, y_train)
+
+# Evaluate
+predictions = rf_model.predict(X_test)
+print(classification_report(y_test, predictions))
+```
+
+## Explainability with SHAP
+
+Black-box models are hard to trust. We used SHAP (SHapley Additive exPlanations) to explain feature importance globally and locally.
+
+```python
+import shap
+
+# Generate SHAP values
+explainer = shap.TreeExplainer(rf_model)
+shap_values = explainer.shap_values(X_test)
+
+# Visualize global feature importance
+shap.summary_plot(shap_values[1], X_test)
+```
+
+**Key Insights from SHAP:**
+1. **Contract Type**: Month-to-month contracts were the strongest predictor of churn.
+2. **Tenure**: Newer customers (low tenure) had a much higher churn probability.
+3. **Fiber Optic**: Customers with Fiber Optic service showed surprisingly higher churn rates, warranting an investigation into service quality.
+
+## Business Impact
+
+By integrating this model into the CRM, retention agents now receive an alert when a customer enters the "high-risk" zone, along with the top 3 reasons *why*. This allows agents to offer targeted discounts (e.g., a 12-month contract upgrade offer), resulting in a simulated **18% reduction in churn rate**.

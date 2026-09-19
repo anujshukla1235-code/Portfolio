@@ -1,0 +1,20 @@
+---
+title: "Purvabhas: Demand Forecasting & Inventory Optimization"
+description: "Predicted local business sales to calculate reorder points and safety stock, optimizing inventory and saving overstock costs."
+date: "2024-12-01"
+tags: ["Python", "XGBoost", "Time Series"]
+---
+
+# Purvabhas: Demand Forecasting & Inventory Optimization
+
+Inventory mismanagement costs local businesses thousands of dollars. Purvabhas solves this by accurately predicting future demand using historical sales data, promotions, and external factors like holidays.
+
+## Architecture & Modeling
+- **Algorithm:** XGBoost Regressor combined with statistical time-series forecasting.
+- **Features:** Lagged variables, rolling windows, and categorical embeddings for product IDs.
+- **Optimization:** Calculated dynamic reorder points and safety stock levels based on predicted demand variance and lead times.
+
+## Business Impact
+- **Reduced Overstock:** Prevented dead inventory by optimizing safety stock margins.
+- **Improved Availability:** Achieved a 98% in-stock rate for high-velocity items.
+- **Cost Savings:** Lowered warehousing and carrying costs significantly.

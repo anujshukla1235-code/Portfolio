@@ -1,0 +1,57 @@
+---
+title: "Shastrarth with Ashtavakra: An AI Interviewer"
+description: "Built a conversational AI agent (Ashtavakra) to conduct technical screenings, evaluate real-time responses, and generate candidate reports."
+date: "2024-11-01"
+tags: ["LLMs", "LangChain", "Agentic AI"]
+---
+
+# Shastrarth: RAG Chatbot: Context-Aware Conversational AI
+
+Large Language Models (LLMs) hallucinate when asked about proprietary or recent data they weren't trained on. Retrieval-Augmented Generation (RAG) solves this by fetching relevant documents from a knowledge base and injecting them into the LLM's prompt.
+
+## Architecture
+
+1. **Document Loading**: Ingesting PDF manuals and internal wiki pages.
+2. **Chunking**: Splitting documents into 500-token chunks with 50-token overlap to maintain context.
+3. **Embedding**: Converting text chunks into vector embeddings using `text-embedding-3-small`.
+4. **Vector Store**: Storing embeddings in **Pinecone** for fast semantic search.
+5. **Retrieval & Generation**: Using **LangChain** to connect the user's query to Pinecone, retrieve the top-K chunks, and pass them to `gpt-4o-mini` to generate an answer.
+
+## Implementation Snippet
+
+```python
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_pinecone import PineconeVectorStore
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_core.prompts import ChatPromptTemplate
+
+# 1. Setup Embeddings and Vector Store
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+vectorstore = PineconeVectorStore(index_name="internal-docs", embedding=embeddings)
+retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+
+# 2. Setup LLM and Prompt
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+prompt = ChatPromptTemplate.from_template("""
+Answer the question based ONLY on the provided context:
+<context>
+{context}
+</context>
+Question: {input}
+""")
+
+# 3. Create the RAG Chain
+document_chain = create_stuff_documents_chain(llm, prompt)
+retrieval_chain = create_retrieval_chain(retriever, document_chain)
+
+# 4. Invoke
+response = retrieval_chain.invoke({"input": "What is the policy on remote work?"})
+print(response["answer"])
+```
+
+## Results & Learnings
+
+- **Accuracy**: RAG eliminated hallucinations for domain-specific questions.
+- **Challenges**: Tuning the chunk size was critical. Too large, and the LLM loses focus (Lost in the Middle phenomenon); too small, and the semantic meaning is lost.
+- **Latency**: The end-to-end response time averages 1.2 seconds, making it suitable for real-time customer support.

@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Syntax Highlighting overrides for rehype-pretty-code */
+pre {
+  @apply rounded-lg overflow-x-auto py-4 px-4 my-6 bg-zinc-950 text-sm;
+}
+code {
+  @apply font-mono text-sm px-1 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800;
+}
+pre > code {
+  @apply bg-transparent p-0;
+}

@@ -1,0 +1,19 @@
+---
+title: "Chhal-Bhedak: Cost-Sensitive Fraud Detection"
+description: "Built a fraud classifier optimizing the threshold for real-world cost matrix (false positive vs false negative costs)."
+date: "2024-09-01"
+tags: ["Classification", "Cost Matrix", "MLOps"]
+---
+
+# Chhal-Bhedak: Cost-Sensitive Fraud Detection
+
+In credit card fraud detection, the cost of missing a fraudulent transaction (false negative) is much higher than incorrectly flagging a legitimate one (false positive). Chhal-Bhedak is a classification system designed precisely around this business cost matrix.
+
+## Methodology
+- **Imbalanced Data Handling:** Utilized SMOTE and cost-sensitive learning techniques (e.g., sample weights) during training.
+- **Threshold Optimization:** Shifted the classification decision boundary away from the default 0.5 to minimize the expected financial loss, evaluated against a custom cost function.
+- **Modeling:** Trained robust ensemble classifiers (Random Forest, Gradient Boosting) to capture complex non-linear fraud patterns.
+
+## Results
+- Significantly reduced overall financial loss compared to standard accuracy-optimized models.
+- Deployed via an MLOps pipeline for real-time transaction scoring.
