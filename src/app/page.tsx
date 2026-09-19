@@ -33,7 +33,7 @@ export default function HomePage() {
         <div className="w-full md:w-2/5 mt-16 md:mt-0 flex justify-center md:justify-end">
           <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-[6px] border-white dark:border-zinc-200 shadow-2xl overflow-hidden">
             <img 
-              src="/images/profile.webp" 
+              src="/images/profile.png" 
               alt="Anuj Shukla" 
               className="w-full h-full object-cover"
             />
