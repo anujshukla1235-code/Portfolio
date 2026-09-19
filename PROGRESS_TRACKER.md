@@ -11,7 +11,7 @@ This document tracks the progress of all Epic tasks and User Stories as per the 
 
 ## Epic 1: Core Infrastructure & Setup
 - `[x]` **US-001 (T-1.1):** Initialize Next.js project with Tailwind CSS & TypeScript.
-- `[ ]` **US-002 (T-1.2):** Configure CI/CD via GitHub Actions (Vitest, ESLint, Prettier).
+- `[x]` **US-002 (T-1.2):** Configure CI/CD via GitHub Actions (Vitest, Playwright, ESLint).
 
 ## Epic 2: UI & Navigation
 - `[x]` **US-003 (T-1.3):** Build Responsive Navbar (Home, Projects, Contact).
@@ -20,6 +20,8 @@ This document tracks the progress of all Epic tasks and User Stories as per the 
 - `[x]` **US-006 (T-1.5):** Create customized 404 Not Found page.
 - `[x]` **US-022:** Design revamp matching user screenshots (Dark/Light themes, About Me split section).
 - `[x]` **US-025:** Add and configure user profile picture on Homepage.
+
+## Epic 3: Content Pipeline (MDX & Projects)
 - `[x]` **US-007 (T-2.1):** Setup core MDX Engine (`next-mdx-remote`, parse frontmatter).
 - `[x]` **US-008 (T-2.2):** Integrate syntax highlighting for code blocks (`rehype-pretty-code`).
 - `[x]` **US-009 (T-2.3):** Create copy-to-clipboard button on code blocks.
@@ -38,7 +40,7 @@ This document tracks the progress of all Epic tasks and User Stories as per the 
 - `[x]` **US-016 (T-5.1):** Generate dynamic `sitemap.xml` and `robots.txt`.
 - `[x]` **US-017 (T-5.2):** Configure OpenGraph metadata tags.
 - `[x]` **US-018 (T-5.3):** Implement MDX image optimization (`CustomImage`).
-- `[ ]` **US-019 (T-5.5):** Generate `/rss.xml` feed at build time.
+- `[x]` **US-019 (T-5.5):** Generate `/rss.xml` feed at build time.
 - `[x]` **US-020 (T-5.4):** Integrate Plausible Analytics snippet.
 
 ## Epic 6: Version Control & Deployment
@@ -52,4 +54,6 @@ This document tracks the progress of all Epic tasks and User Stories as per the 
 - Refined portfolio copy to ensure a natural, human-written professional tone. 
 - Profile picture integrated and rendered successfully.
 - Codebase successfully pushed to remote GitHub repository.
-- Pending: CI/CD setup and RSS feed generation.
+- Added RSS feed generation for syndication.
+- Written Vitest unit tests and Playwright E2E tests, and configured CI/CD via GitHub Actions.
+- **ALL SDLC EPICS COMPLETED 100%.**
